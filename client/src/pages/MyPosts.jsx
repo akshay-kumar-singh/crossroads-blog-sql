@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMyPosts, updatePost, deletePost } from "../services/api"; // deletePost imported
+import { getMyPosts, updatePost, deletePost } from "../services/api";
 import { Link } from "react-router-dom";
 import "./MyPosts.css";
 
@@ -66,11 +66,19 @@ function MyPosts() {
   };
 
   if (loading) {
-    return <div className="myposts-container"><p>Loading your posts...</p></div>;
+    return (
+      <div className="myposts-container">
+        <p>Loading your posts...</p>
+      </div>
+    );
   }
 
   if (myPosts.length === 0) {
-    return <div className="myposts-container"><p>No posts created by you yet!</p></div>;
+    return (
+      <div className="myposts-container">
+        <p>No posts created by you yet!</p>
+      </div>
+    );
   }
 
   return (
@@ -80,7 +88,10 @@ function MyPosts() {
         {myPosts.map((post) => (
           <div key={post.id} className="mypost-card">
             <div className="image-wrapper">
-              <img src={`http://localhost:5000${post.coverImage}`} alt="Cover" />
+              <img
+                src={`http://localhost:5000${post.coverImage}`}
+                alt="Cover"
+              />
             </div>
             <div className="content-wrapper">
               {editingPostId === post.id ? (
@@ -102,8 +113,16 @@ function MyPosts() {
                     required
                   />
                   <div className="form-buttons">
-                    <button type="submit" className="save-button">Save</button>
-                    <button type="button" onClick={() => setEditingPostId(null)} className="cancel-button">Cancel</button>
+                    <button type="submit" className="save-button">
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditingPostId(null)}
+                      className="cancel-button"
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </form>
               ) : (
@@ -111,9 +130,21 @@ function MyPosts() {
                   <h3>{post.title}</h3>
                   <p className="preview">{post.content.slice(0, 100)}...</p>
                   <div className="action-buttons">
-                    <Link to={`/post/${post.id}`} className="read-more-button">Read More</Link>
-                    <button onClick={() => handleEditClick(post)} className="edit-button">Edit</button>
-                    <button onClick={() => handleDelete(post.id)} className="delete-button">Delete</button>
+                    <Link to={`/post/${post.id}`} className="read-more-button">
+                      Read More
+                    </Link>
+                    <button
+                      onClick={() => handleEditClick(post)}
+                      className="edit-button"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(post.id)}
+                      className="delete-button"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </>
               )}

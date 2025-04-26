@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile } from "../services/api"; // ✅ imported correctly
+import { getUserProfile } from "../services/api";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // for better UX
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,24 +21,24 @@ const Profile = () => {
         if (data.id) {
           setUser(data);
         } else {
-          localStorage.removeItem("token"); // 🛠 remove invalid token
+          localStorage.removeItem("token");
           navigate("/login");
         }
       } catch (error) {
         console.error("Error fetching profile:", error);
-        localStorage.removeItem("token"); // 🛠 remove invalid token
+        localStorage.removeItem("token");
         navigate("/login");
       } finally {
-        setLoading(false); // ✅ stop loading after try/catch is finished
+        setLoading(false);
       }
     };
 
     fetchUserProfile();
   }, [navigate]);
 
-  if (loading) return <div>Loading...</div>; // ✅ show loading only while loading
+  if (loading) return <div>Loading...</div>;
 
-  if (!user) return <div>No user data found.</div>; // ✅ additional safety
+  if (!user) return <div>No user data found.</div>;
 
   return (
     <div className="profile-container">

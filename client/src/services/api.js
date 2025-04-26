@@ -1,14 +1,11 @@
 import axios from "axios";
 
-// 🔹 Set baseURL for all API requests
 const apiUrl = "http://localhost:5000";
 
-// 🔹 Axios instance
 const API = axios.create({
   baseURL: apiUrl,
 });
 
-// 🔒 Attach token automatically if available
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -16,10 +13,6 @@ API.interceptors.request.use((config) => {
   }
   return config;
 });
-
-// ===============================
-// 🔥 AUTH APIs
-// ===============================
 
 export const registerUser = async (formData) => {
   try {
@@ -47,10 +40,6 @@ export const getUserProfile = async () => {
     throw new Error(error.response?.data?.message || "Failed to fetch profile");
   }
 };
-
-// ===============================
-// 🔥 POSTS APIs
-// ===============================
 
 export const createPost = async (formData) => {
   try {
@@ -105,15 +94,13 @@ export const deletePost = async (id) => {
   }
 };
 
-// ===============================
-// 🌟 NEW: MY POSTS API
-// ===============================
-
 export const getMyPosts = async () => {
   try {
     const response = await API.get("/posts/user/myposts");
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to fetch your posts");
+    throw new Error(
+      error.response?.data?.message || "Failed to fetch your posts"
+    );
   }
 };

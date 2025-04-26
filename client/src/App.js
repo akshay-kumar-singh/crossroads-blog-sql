@@ -19,7 +19,6 @@ function App() {
         <Route path="/create" element={<CreatePost />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/post/:id" element={<SinglePost />} />
-
         <Route path="/myposts" element={<MyPosts />} />
       </Routes>
     </Router>

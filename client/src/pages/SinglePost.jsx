@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPostById } from "../services/api"; // ✅ import from services
+import { getPostById } from "../services/api";
 import "./SinglePost.css";
 
 function SinglePost() {
@@ -12,7 +12,7 @@ function SinglePost() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const data = await getPostById(id); // ✅ fetch post from API
+        const data = await getPostById(id);
         setPost(data);
       } catch (error) {
         console.error("Error fetching post:", error);
@@ -26,18 +26,26 @@ function SinglePost() {
   }, [id]);
 
   if (loading) {
-    return <div className="single-post-container"><p>Loading post...</p></div>;
+    return (
+      <div className="single-post-container">
+        <p>Loading post...</p>
+      </div>
+    );
   }
 
   if (!post) {
-    return <div className="single-post-container"><p>Post not found.</p></div>;
+    return (
+      <div className="single-post-container">
+        <p>Post not found.</p>
+      </div>
+    );
   }
 
   return (
     <div className="single-post-container">
       {post.coverImage && (
         <img
-        src={`${api}${post.coverImage}`}
+          src={`${api}${post.coverImage}`}
           alt="Cover"
           className="cover-image"
         />

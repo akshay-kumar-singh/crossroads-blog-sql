@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/api"; // ✅ correct import
+import { loginUser } from "../services/api";
 import "./Auth.css";
 
 const Login = () => {
@@ -15,12 +15,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await loginUser(formData); // ✅ Call API only ONCE
+      const data = await loginUser(formData);
 
       if (data.token) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("email", formData.email); // ✅ Save the email from response
-        navigate("/profile"); // or wherever you want to redirect after login
+        localStorage.setItem("email", formData.email);
+        navigate("/profile");
       } else {
         setError(data.message || "Invalid credentials");
       }

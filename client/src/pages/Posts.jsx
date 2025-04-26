@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllPosts } from "../services/api"; // ✅ import API function
+import { getAllPosts } from "../services/api";
 import "./Posts.css";
-
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -12,8 +11,7 @@ function Posts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const data = await getAllPosts(); // 🔥 fetch posts from server
-        setPosts(data);
+        const data = await getAllPosts();
       } catch (error) {
         console.error("Error fetching posts:", error);
         alert(error.message || "Failed to load posts.");
@@ -26,11 +24,19 @@ function Posts() {
   }, []);
 
   if (loading) {
-    return <div className="posts-container"><p>Loading posts...</p></div>;
+    return (
+      <div className="posts-container">
+        <p>Loading posts...</p>
+      </div>
+    );
   }
 
   if (posts.length === 0) {
-    return <div className="posts-container"><p>No posts found.</p></div>;
+    return (
+      <div className="posts-container">
+        <p>No posts found.</p>
+      </div>
+    );
   }
 
   return (
@@ -41,17 +47,20 @@ function Posts() {
           <div key={post._id} className="post-card">
             {post.coverImage && (
               <img
-                src={post.coverImage.startsWith("http") 
-                  ? post.coverImage 
-                  : `${apiUrl}${post.coverImage}`
+                src={
+                  post.coverImage.startsWith("http")
+                    ? post.coverImage
+                    : `${apiUrl}${post.coverImage}`
                 }
                 alt="Cover"
               />
             )}
             <h3>{post.title}</h3>
-            <p>{post.content?.slice(0, 100)}...</p> {/* only a short preview */}
+            <p>{post.content?.slice(0, 100)}...</p>
             <small>by {post.author?.name || "Unknown"}</small>
-            <Link to={`/post/${post.id}`} className="read-more-button">Read More</Link>
+            <Link to={`/post/${post.id}`} className="read-more-button">
+              Read More
+            </Link>
           </div>
         ))}
       </div>

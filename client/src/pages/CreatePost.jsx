@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPost } from "../services/api"; // ✅ import from your services/api.js
-import "./CreatePost.css"; // optional styling
+import { createPost } from "../services/api";
+import "./CreatePost.css";
 
 const CreatePost = () => {
   const [formData, setFormData] = useState({
@@ -39,10 +39,10 @@ const CreatePost = () => {
         postData.append("coverImage", formData.coverImage);
       }
 
-      await createPost(postData); // ✅ using our service function
+      await createPost(postData);
 
       alert("Post created successfully!");
-      navigate("/"); // redirect to home
+      navigate("/");
     } catch (error) {
       console.error("Error creating post:", error);
       alert(error.message || "Failed to create post.");
